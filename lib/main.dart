@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 import 'package:recipe_project/components/splashscreen.dart';
 
 void main() {
@@ -28,87 +29,204 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
+class HomePage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _HomePageState extends State<HomePage> {
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  // membuat varibale
+  double value = 0; 
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+      body: Stack(
+          children: [
+            // membuat background gradient
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.blue[400],
+                    Colors.blue[400],
+                  ],
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter
+                )
+              ),
+              // decoration: BoxDecoration(
+              //   image: DecorationImage(
+              //     image: NetworkImage(
+              //       'https://cdn.pixabay.com/photo/2015/03/26/09/41/phone-690091_960_720.jpg',
+              //     ),
+              //   )
+              // ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+
+            // membuat menu navigasi
+            SafeArea(
+              child: Container(
+                width: 200.0,
+                padding: EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    DrawerHeader(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircleAvatar(
+                            radius: 50.0,
+                            backgroundImage: NetworkImage(
+                              "https://www.gstatic.com/webp/gallery/4.sm.jpg"
+                            ),
+                          ),
+                          SizedBox(height: 10.0,),
+                          Text(
+                            "Sandy",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: ListView(
+                        children: [
+                          ListTile(
+                            onTap: () {},
+                            leading: Icon(
+                              Icons.home,
+                              color: Colors.white,
+                            ),
+                            title: Text(
+                              "Home",
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            )
+                          ),
+                          ListTile(
+                            onTap: () {},
+                            leading: Icon(
+                              Icons.list,
+                              color: Colors.white,
+                            ),
+                            title: Text(
+                              "List",
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            )
+                          ),
+                          ListTile(
+                            onTap: () {},
+                            leading: Icon(
+                              Icons.category,
+                              color: Colors.white,
+                            ),
+                            title: Text(
+                              "Kategori",
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            )
+                          ),
+                          ListTile(
+                            onTap: () {},
+                            leading: Icon(
+                              Icons.logout,
+                              color: Colors.white,
+                            ),
+                            title: Text(
+                              "Keluar",
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            )
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
+
+            // membuat main screen
+            TweenAnimationBuilder(
+              tween: Tween<double>(
+                begin: 0,
+                end: value,
+              ),
+              duration: Duration(milliseconds: 500),
+              curve: Curves.easeIn,
+              builder: (_, double val, __) {
+                return (
+                  Transform(
+                    alignment: Alignment.center,
+                    transform: Matrix4.identity()
+                    ..setEntry(3, 2, 0.001)
+                    ..setEntry(0, 3, 200 * val)
+                    ..rotateY((pi / 12) * val),
+                    child: Scaffold(
+                      appBar: AppBar(
+                        leading: Icon(
+                          Icons.list_outlined,
+                        ),
+                        actions: [                         
+                          Image.asset(
+                            'assets/images/logo.png',
+                            width: 60.0,
+                            height: 10.0,
+                            scale: 8,
+                          )
+                        ],
+                        title: Text("Home"),
+                      ),
+                      body: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Test"),
+                            ElevatedButton(
+                              onPressed: () {},
+                              child: Text("Tombol"),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                );
+              }
+            ),
+
+            // membuat gestur saat membuka drawer
+            GestureDetector(
+              onHorizontalDragUpdate: (e) {
+                if (e.delta.dx > 0) {
+                  setState(() {
+                    value = 1;
+                  });
+                } else {
+                  setState(() {
+                    value = 0;
+                  });
+                }
+              },
+              // onTap: () {
+              //   setState(() {
+              //     value == 0 ? value = 1 : value = 0;
+              //   });
+              // },
+            )  
+
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+      );
   }
 }

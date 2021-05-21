@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_project/pages/home.dart';
 import 'dart:async';
+import 'package:recipe_project/main.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -19,35 +20,39 @@ class _SplashScreenState extends State<SplashScreen> {
     return Timer(duration, (){
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Home()),
+        MaterialPageRoute(builder: (context) => HomePage()),
       );
     });
   }
 
+  Color primaryColor = Color(0xFF010324);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
-      body: Center(
+      backgroundColor: primaryColor,
+      body: Container(
+        constraints: BoxConstraints.expand(),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/pattern.png'),
+            fit: BoxFit.cover,
+          )
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(
-              Icons.school,
-              size: 100.0,
-              color: Colors.white
-            ),
-            SizedBox(
-              height: 24.0,
-            ),
-            Text('Testing',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 30.0,
-              ),
-            ),
+            // Icon(
+            //   Icons.school,
+            //   size: 100.0,
+            //   color: Colors.white
+            // ),
+            Image.asset(
+              'assets/images/logo_putih.png',
+              width: 200.0,
+              height: 200.0,
+            )
           ],
         ),
       ) 
