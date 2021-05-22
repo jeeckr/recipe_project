@@ -50,7 +50,25 @@ class _HomePageState extends State<HomePage> {
       "https://picsum.photos/seed/picsum/200/300",
       "Resep 1",
       "Makanan",
-      "Ini adalah resep pertama"
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    ),
+    new RecipeData(
+      "https://picsum.photos/seed/picsum/200/300",
+      "Resep 2",
+      "Makanan",
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    ),
+    new RecipeData(
+      "https://picsum.photos/seed/picsum/200/300",
+      "Resep 3",
+      "Makanan",
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    ),
+    new RecipeData(
+      "https://picsum.photos/seed/picsum/200/300",
+      "Resep 4",
+      "Makanan",
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
     ),
   ];
 
@@ -241,6 +259,26 @@ class _HomePageState extends State<HomePage> {
                                     children: [
                                       myCategory(categories[0]),
                                       myCategory(categories[1])
+                                    ],
+                                  ),
+                                ),
+                                Text("List Resep",
+                                  style: TextStyle(
+                                    fontSize: 20.0
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 12.0,
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  height: 600.0,
+                                  child: ListView(
+                                    children: [
+                                      myRecipe(recipes[0]),
+                                      myRecipe(recipes[1]),
+                                      myRecipe(recipes[2]),
+                                      myRecipe(recipes[3])
                                     ],
                                   ),
                                 )
