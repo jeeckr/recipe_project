@@ -1,50 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_project/components/myrecipe.dart';
-import 'package:recipe_project/components/mycategory.dart';
 import 'dart:math';
-import 'package:recipe_project/components/splashscreen.dart';
-import 'package:recipe_project/data/recipe.dart';
-import 'package:recipe_project/data/category.dart';
 import 'package:recipe_project/components/mydrawer.dart';
+import 'package:recipe_project/data/recipe.dart';
+import 'package:recipe_project/components/myrecipe.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class Recipes extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: SplashScreen(),
-    );
-  }
+  _RecipesState createState() => _RecipesState();
 }
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
+class _RecipesState extends State<Recipes> {
 
-class _HomePageState extends State<HomePage> {
-
-  // membuat varibale
-  double value = 0; 
+  double value = 0;
   Color primaryColor = Color(0xFF010324);
-  Color backgroundColor = Color(0xFFB5B5B5);
+  Color backgroundColor = Color(0xFFB5B5B5); 
 
   List<RecipeData> recipes = [
     new RecipeData(
@@ -73,42 +42,26 @@ class _HomePageState extends State<HomePage> {
     ),
   ];
 
-  List<CategoryData> categories = [
-    new CategoryData(
-      "assets/images/logo.png",
-      "Makanan",
-    ),
-    new CategoryData(
-      "assets/images/logo.png",
-      "Minuman",
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-          children: [
-            // membuat background gradient
-            Scaffold(
-              backgroundColor: primaryColor,
-              body: Container(
-                constraints: BoxConstraints.expand(),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/pattern.png'),
-                    fit: BoxFit.cover,
-                  )
-                ),
-                child: null,
-              ) 
-            ),
-
-            // menu navigasi
-            MyDrawer(),
-
-            // membuat main screen
-            TweenAnimationBuilder(
+        children: [
+          Scaffold(
+            backgroundColor: primaryColor,
+            body: Container(
+              constraints: BoxConstraints.expand(),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/pattern.png'),
+                  fit: BoxFit.cover,
+                )
+              ),
+              child: null,
+            ) 
+          ),
+          MyDrawer(),
+          TweenAnimationBuilder(
               tween: Tween<double>(
                 begin: 0,
                 end: value,
@@ -137,11 +90,11 @@ class _HomePageState extends State<HomePage> {
                             scale: 8,
                           )
                         ],
-                        title: Text("Home"),
+                        title: Text("Resep"),
                       ),
                       body: Container(
                         constraints: BoxConstraints.expand(),
-                        decoration: BoxDecoration(color: backgroundColor),
+                        decoration: BoxDecoration(),
                         child: SingleChildScrollView(
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
@@ -164,28 +117,6 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 SizedBox(
                                   height: 20.0,
-                                ),
-                                Text("Kategori",
-                                  style: TextStyle(
-                                    fontSize: 20.0
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 12.0,
-                                ),
-                                Container(
-                                  width: double.infinity,
-                                  height: 100.0,
-                                  child: ListView(
-                                    scrollDirection: Axis.horizontal,
-                                    children: [
-                                      myCategory(categories[0]),
-                                      myCategory(categories[1])
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 13.0,
                                 ),
                                 Text("List Resep",
                                   style: TextStyle(
@@ -217,9 +148,7 @@ class _HomePageState extends State<HomePage> {
                 );
               }
             ),
-
-            // membuat gestur saat membuka drawer
-            GestureDetector(
+          GestureDetector(
               onHorizontalDragUpdate: (e) {
                 if (e.delta.dx > 0) {
                   setState(() {
@@ -232,8 +161,8 @@ class _HomePageState extends State<HomePage> {
                 }
               },
             )  
-          ],
-        ),
-      );
+        ],
+      ),
+    );
   }
 }

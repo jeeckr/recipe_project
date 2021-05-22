@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_project/data/recipe.dart';
+import 'package:recipe_project/pages/detailRecipe.dart';
 
-Widget myRecipe(RecipeData recipe) {
+Widget myRecipe(BuildContext context, RecipeData recipe) {
   return Container(
     width: double.infinity,
     height: 150.0,
+    margin: EdgeInsets.only(bottom: 8.0),
     child: Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
@@ -17,7 +19,7 @@ Widget myRecipe(RecipeData recipe) {
       children: [
         Container(
           margin: EdgeInsets.only(right: 8.0),
-          width: 150.5,
+          width: 120.0,
           height: 150.0,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15.0),
@@ -41,32 +43,47 @@ Widget myRecipe(RecipeData recipe) {
                     fontWeight: FontWeight.bold
                   ),
                 ),
+                // SizedBox(
+                //   height: 8.0,
+                // ),
+                // Text(
+                //   recipe.category,
+                //   style: TextStyle(
+                //     fontSize: 15.0,
+                //   ),
+                // ),
                 SizedBox(
                   height: 8.0,
                 ),
-                Text(
-                  recipe.category,
-                  style: TextStyle(
-                    fontSize: 15.0,
+                Flexible(
+                  child: Text(
+                    recipe.description, 
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                    style: TextStyle(
+                      fontSize: 15.0,
+                    ),
                   ),
                 ),
                 SizedBox(
-                  height: 8.0,
-                ),
-                Text(
-                  recipe.description,
-                  style: TextStyle(
-                    fontSize: 15.0,
-                  ),
+                  height: 10.0,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
                     RaisedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetailRecipe()
+                          )
+                        );
+                      },
                       color: Colors.red,
                       textColor: Colors.white,
-                      padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0),
+                      padding: EdgeInsets.symmetric(horizontal: 30.0),
                       splashColor: Colors.grey,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0)
@@ -78,29 +95,6 @@ Widget myRecipe(RecipeData recipe) {
                         ),
                       ),
                     ),
-                    // ElevatedButton(
-                    //   onPressed: () {},
-                    //   // style: ButtonStyle(
-                    //   //   foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                    //   //   backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
-                    //   //   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    //   //     RoundedRectangleBorder(
-                    //   //       borderRadius: BorderRadius.circular(8.0)
-                    //   //     )
-                    //   //   )
-                    //   // ),
-                    //   style: ElevatedButton.styleFrom(
-                    //     primary: Colors.red,
-                    //     padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                        
-                    //   ),
-                    //   child: Text(
-                    //     "Detail Resep",
-                    //     style: TextStyle(
-                    //       fontSize: 10.0,
-                    //     ),
-                    //     ),
-                    // )
                   ],
                 )
               ],
