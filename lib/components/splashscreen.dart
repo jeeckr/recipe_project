@@ -50,8 +50,8 @@ class _SplashScreenState extends State<SplashScreen> {
             // ),
             Image.asset(
               'assets/images/logo_putih.png',
-              width: 200.0,
-              height: 200.0,
+              width: 150.0,
+              height: 150.0,
             )
           ],
         ),

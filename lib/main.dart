@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_project/components/myrecipe.dart';
+import 'package:recipe_project/components/mycategory.dart';
 import 'dart:math';
 import 'package:recipe_project/components/splashscreen.dart';
+import 'package:recipe_project/data/recipe.dart';
+import 'package:recipe_project/data/category.dart';
 
 void main() {
   runApp(MyApp());
@@ -38,6 +42,28 @@ class _HomePageState extends State<HomePage> {
 
   // membuat varibale
   double value = 0; 
+  Color primaryColor = Color(0xFF010324);
+  Color backgroundColor = Color(0xFFB5B5B5);
+
+  List<RecipeData> recipes = [
+    new RecipeData(
+      "https://picsum.photos/seed/picsum/200/300",
+      "Resep 1",
+      "Makanan",
+      "Ini adalah resep pertama"
+    ),
+  ];
+
+  List<CategoryData> categories = [
+    new CategoryData(
+      "assets/images/logo.png",
+      "Makanan",
+    ),
+    new CategoryData(
+      "assets/images/logo.png",
+      "Minuman",
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -45,24 +71,18 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
           children: [
             // membuat background gradient
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.blue[400],
-                    Colors.blue[400],
-                  ],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter
-                )
-              ),
-              // decoration: BoxDecoration(
-              //   image: DecorationImage(
-              //     image: NetworkImage(
-              //       'https://cdn.pixabay.com/photo/2015/03/26/09/41/phone-690091_960_720.jpg',
-              //     ),
-              //   )
-              // ),
+            Scaffold(
+              backgroundColor: primaryColor,
+              body: Container(
+                constraints: BoxConstraints.expand(),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/pattern.png'),
+                    fit: BoxFit.cover,
+                  )
+                ),
+                child: null,
+              ) 
             ),
 
             // membuat menu navigasi
@@ -76,20 +96,11 @@ class _HomePageState extends State<HomePage> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          CircleAvatar(
-                            radius: 50.0,
-                            backgroundImage: NetworkImage(
-                              "https://www.gstatic.com/webp/gallery/4.sm.jpg"
-                            ),
-                          ),
-                          SizedBox(height: 10.0,),
-                          Text(
-                            "Sandy",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20.0,
-                            ),
-                          ),
+                          Image.asset(
+                            'assets/images/logo_putih.png',
+                            width: 100.0,
+                            height: 100.0,
+                          )
                         ],
                       ),
                     ),
@@ -174,6 +185,7 @@ class _HomePageState extends State<HomePage> {
                     ..rotateY((pi / 12) * val),
                     child: Scaffold(
                       appBar: AppBar(
+                        backgroundColor: Colors.transparent,
                         leading: Icon(
                           Icons.list_outlined,
                         ),
@@ -187,17 +199,55 @@ class _HomePageState extends State<HomePage> {
                         ],
                         title: Text("Home"),
                       ),
-                      body: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Test"),
-                            ElevatedButton(
-                              onPressed: () {},
-                              child: Text("Tombol"),
+                      body: Container(
+                        constraints: BoxConstraints.expand(),
+                        decoration: BoxDecoration(color: backgroundColor),
+                        child: SingleChildScrollView(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                TextField(
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: backgroundColor,
+                                    prefixIcon: Icon(Icons.search),
+                                    contentPadding: EdgeInsets.all(8.0),
+                                    hintText: "Search..",
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      borderSide: BorderSide.none
+                                    )
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20.0,
+                                ),
+                                Text("Kategori",
+                                  style: TextStyle(
+                                    fontSize: 20.0
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 12.0,
+                                ),
+                                Container(
+                                  width: double.infinity,
+                                  height: 100.0,
+                                  child: ListView(
+                                    scrollDirection: Axis.horizontal,
+                                    children: [
+                                      myCategory(categories[0]),
+                                      myCategory(categories[1])
+                                    ],
+                                  ),
+                                )
+                              ],
                             ),
-                          ],
-                        ),
+                          )
+                        )
                       ),
                     ),
                   )
