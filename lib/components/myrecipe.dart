@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_project/data/recipe.dart';
 import 'package:recipe_project/pages/detailRecipe.dart';
 
-Widget myRecipe(BuildContext context, RecipeData recipe) {
+Widget myRecipe(BuildContext context) {
   return Container(
     width: double.infinity,
     height: 150.0,
@@ -24,7 +24,7 @@ Widget myRecipe(BuildContext context, RecipeData recipe) {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15.0),
             image: DecorationImage(
-              image: NetworkImage(recipe.image),
+              image: null,
               fit: BoxFit.cover,
             )
           ),
@@ -37,7 +37,7 @@ Widget myRecipe(BuildContext context, RecipeData recipe) {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  recipe.title,
+                  "test",
                   style: TextStyle(
                     fontSize: 20.0,
                     fontWeight: FontWeight.bold
@@ -57,7 +57,7 @@ Widget myRecipe(BuildContext context, RecipeData recipe) {
                 ),
                 Flexible(
                   child: Text(
-                    recipe.description, 
+                    "test", 
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     style: TextStyle(

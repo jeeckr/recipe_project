@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_project/pages/home.dart';
 import 'dart:async';
-import 'package:recipe_project/main.dart';
+import 'package:recipe_project/screen/home.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -20,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Timer(duration, (){
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => Home()),
       );
     });
   }
@@ -43,11 +42,6 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Icon(
-            //   Icons.school,
-            //   size: 100.0,
-            //   color: Colors.white
-            // ),
             Image.asset(
               'assets/images/logo_putih.png',
               width: 150.0,

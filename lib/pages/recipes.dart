@@ -126,18 +126,18 @@ class _RecipesState extends State<Recipes> {
                                 SizedBox(
                                   height: 12.0,
                                 ),
-                                Container(
-                                  width: double.infinity,
-                                  height: 600.0,
-                                  child: ListView(
-                                    children: [
-                                      myRecipe(context, recipes[0]),
-                                      myRecipe(context, recipes[1]),
-                                      myRecipe(context, recipes[2]),
-                                      myRecipe(context, recipes[3])
-                                    ],
-                                  ),
-                                )
+                                // Container(
+                                //   width: double.infinity,
+                                //   height: 600.0,
+                                //   child: ListView(
+                                //     children: [
+                                //       myRecipe(context, recipes[0]),
+                                //       myRecipe(context, recipes[1]),
+                                //       myRecipe(context, recipes[2]),
+                                //       myRecipe(context, recipes[3])
+                                //     ],
+                                //   ),
+                                // )
                               ],
                             ),
                           )

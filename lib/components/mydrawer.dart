@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_project/main.dart';
+// import 'package:recipe_project/main.dart';
+import 'package:recipe_project/screen/home.dart';
 import 'package:recipe_project/pages/recipes.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -31,7 +32,7 @@ class MyDrawer extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => HomePage()
+                          builder: (context) => Home()
                         )
                       );
                     },
