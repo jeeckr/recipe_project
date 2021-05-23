@@ -8,6 +8,9 @@ class DetailRecipe extends StatefulWidget {
 class _DetailRecipeState extends State<DetailRecipe> {
   @override
   Widget build(BuildContext context) {
+
+    final double headerTop = MediaQuery.of(context).size.height * 0.40;
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -26,6 +29,64 @@ class _DetailRecipeState extends State<DetailRecipe> {
         ],
         title: Text("Detail Resep"),
       ),
+      body: ListView(
+        children: [
+          Container(
+            width: double.infinity,
+            height: headerTop,
+            child: Image.network(
+              "https://picsum.photos/id/237/200/300", 
+              fit: BoxFit.cover
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Rendang Paha Ayam",
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+                Text(
+                  "Rendang adalah masakan padang",
+                  style: TextStyle(
+                    fontSize: 15.0
+                  ),
+                )
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+            child: Text(
+              "Bahan-Bahan : ",
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold
+              ),
+            )
+          ),
+          Container(
+            color: Colors.amber[100],
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("- 4 Paha Ayam"),
+                  Text("- 2 Buah Kentang"),
+                  Text("- 2 Telur Rebus")
+                ],
+              ),
+            ),
+          ),
+        ],
+      )
     );
   }
 }
