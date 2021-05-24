@@ -5,6 +5,7 @@ import 'package:recipe_project/model/responseRecipes.dart';
 import 'package:recipe_project/service/api_service.dart';
 import 'package:recipe_project/components/item_recipe.dart';
 import 'package:recipe_project/screen/detailRecipe.dart';
+import 'dart:developer';
 
 class Home extends StatefulWidget {
   @override
@@ -153,7 +154,7 @@ class _HomeState extends State<Home> {
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                    builder: (context) => DetailRecipe(),
+                                                    builder: (context) => DetailRecipe(keyRecipe: listRecipe[index].key),
                                                   )
                                                 );
                                               },

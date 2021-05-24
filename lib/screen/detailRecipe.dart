@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_project/model/responseRecipes.dart';
+import 'package:recipe_project/service/api_service.dart';
+import 'package:recipe_project/model/responseDetailRecipe.dart';
 
 class DetailRecipe extends StatefulWidget {
-  static const String id = "halamandetail";
-  // final Result recipesss;
-
-  // HalamanTambahEdit({this.recipe});
+  final String keyRecipe;
+  // constructor
+  DetailRecipe({@required this.keyRecipe});
 
   @override
   _DetailRecipeState createState() => _DetailRecipeState();
 }
 
 class _DetailRecipeState extends State<DetailRecipe> {
+
+  final ApiService api = ApiService();
+
   @override
   Widget build(BuildContext context) {
 
@@ -37,62 +40,31 @@ class _DetailRecipeState extends State<DetailRecipe> {
       ),
       body: ListView(
         children: [
-          Container(
-            width: double.infinity,
-            height: headerTop,
-            child: Image.network(
-              "https://picsum.photos/id/237/200/300", 
-              fit: BoxFit.cover
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Rendang Paha Ayam",
-                  style: TextStyle(
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.bold
-                  ),
-                ),
-                Text(
-                  "Rendang adalah masakan padang",
-                  style: TextStyle(
-                    fontSize: 15.0
-                  ),
-                )
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-            child: Text(
-              "Bahan-Bahan : ",
-              style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold
-              ),
-            )
-          ),
-          Container(
-            color: Colors.amber[100],
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("- 4 Paha Ayam"),
-                  Text("- 2 Buah Kentang"),
-                  Text("- 2 Telur Rebus")
-                ],
-              ),
-            ),
-          ),
+          FutureBuilder<Results>(
+            future:  ApiService.getRecipeById(widget.keyRecipe),
+            builder: (context, snapshot) {
+               if (snapshot.connectionState == ConnectionState.waiting) {
+                 
+                 return CircularProgressIndicator();
+               } else {
+                 Results data = snapshot.data;
+
+                 return ListView(
+                   children: [
+                    ListTile(
+                      leading: Icon(Icons.account_box),
+                      title: Text(data.title ?? "Test"),
+                      subtitle: const Text('Nama'),
+                    ),
+                   ],
+                 );
+               }
+            }
+          )
         ],
       )
     );
   }
 }
+
+ 
