@@ -34,33 +34,79 @@ class _DetailCategoryState extends State<DetailCategory> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Container(
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-            child: Column(
-              children: [
-                FutureBuilder(
-                  future: _apiService.getRecipeByCategory(_key),
-                  builder: (BuildContext context, AsyncSnapshot<List<Recipe>> snapshot) {
-                    if (snapshot.hasData) {
-                      List<Recipe> recipes = snapshot.data;
-                      return SingleChildScrollView(
-                        child: _recipeListView(recipes),
-                      );
-                    } else if (snapshot.hasError) {
-                      return Text("${snapshot.error}");
-                    }
-                    return Container(
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    );
-                  },
+          child: Stack(
+            children: [
+              Container(
+                height: size.height * .45,
+                decoration: BoxDecoration(
+                  color: Color(0xFFF5CEB8),
+                  image: DecorationImage(
+                    alignment: Alignment.centerLeft,
+                    image: AssetImage("assets/images/undraw_pilates_gpdb.png")
+                  )
                 ),
-              ],
-            )
+              ),
+              SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Material(
+                        type: MaterialType.transparency,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 15.0,),
+                      Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "\"I cook, I create, I really enjoy what I do, I still have a lot to achieve\"",
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.white,
+                            fontStyle: FontStyle.italic
+                          ),
+                          textAlign: TextAlign.right,
+                        ),
+                      ),
+                      SizedBox(height: 50.0,),
+                      FutureBuilder(
+                        future: _apiService.getRecipeByCategory(_key),
+                        builder: (BuildContext context, AsyncSnapshot<List<Recipe>> snapshot) {
+                          if (snapshot.hasData) {
+                            List<Recipe> recipes = snapshot.data;
+                            return SingleChildScrollView(
+                              child: _recipeListView(recipes),
+                            );
+                          } else if (snapshot.hasError) {
+                            return Text("${snapshot.error}");
+                          }
+                          return Container(
+                            child: Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  )
+                ),
+              )
+            ],
           )
         ),
       )
