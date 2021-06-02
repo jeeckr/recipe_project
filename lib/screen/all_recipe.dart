@@ -1,46 +1,29 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
-import 'package:recipe_project/components/mydrawer.dart';
-import 'package:recipe_project/data/recipe.dart';
-import 'package:recipe_project/components/myrecipe.dart';
 
-class Recipes extends StatefulWidget {
+import 'package:recipe_project/core/model/recipe.dart';
+import 'package:recipe_project/core/service/api_service.dart';
+import 'package:recipe_project/screen/detail_recipe.dart';
+import 'package:recipe_project/widget/mydrawer.dart';
+
+class RecipesScreen extends StatefulWidget {
   @override
-  _RecipesState createState() => _RecipesState();
+  _RecipesScreenState createState() => _RecipesScreenState();
 }
 
-class _RecipesState extends State<Recipes> {
+class _RecipesScreenState extends State<RecipesScreen> {
+  BuildContext context;
+  ApiService _apiService;
 
   double value = 0;
   Color primaryColor = Color(0xFF010324);
   Color backgroundColor = Color(0xFFB5B5B5); 
 
-  List<RecipeData> recipes = [
-    new RecipeData(
-      "https://picsum.photos/seed/picsum/200/300",
-      "Resep 1",
-      "Makanan",
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-    ),
-    new RecipeData(
-      "https://picsum.photos/seed/picsum/200/300",
-      "Resep 2",
-      "Makanan",
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-    ),
-    new RecipeData(
-      "https://picsum.photos/seed/picsum/200/300",
-      "Resep 3",
-      "Makanan",
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-    ),
-    new RecipeData(
-      "https://picsum.photos/seed/picsum/200/300",
-      "Resep 4",
-      "Makanan",
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-    ),
-  ];
+  @override
+  void initState() {
+    _apiService = ApiService();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,18 +109,24 @@ class _RecipesState extends State<Recipes> {
                                 SizedBox(
                                   height: 12.0,
                                 ),
-                                // Container(
-                                //   width: double.infinity,
-                                //   height: 600.0,
-                                //   child: ListView(
-                                //     children: [
-                                //       myRecipe(context, recipes[0]),
-                                //       myRecipe(context, recipes[1]),
-                                //       myRecipe(context, recipes[2]),
-                                //       myRecipe(context, recipes[3])
-                                //     ],
-                                //   ),
-                                // )
+                                FutureBuilder(
+                                  future: _apiService.getRecipes(),
+                                  builder: (BuildContext context, AsyncSnapshot<List<Recipe>> snapshot) {
+                                    if (snapshot.hasData) {
+                                      List<Recipe> recipes = snapshot.data;
+                                      return SingleChildScrollView(
+                                        child: _recipeListView(recipes),
+                                      );
+                                    } else if (snapshot.hasError) {
+                                      return Text("${snapshot.error}");
+                                    }
+                                    return Container(
+                                      child: Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                    );
+                                  },
+                                ),
                               ],
                             ),
                           )
@@ -149,20 +138,85 @@ class _RecipesState extends State<Recipes> {
               }
             ),
           GestureDetector(
-              onHorizontalDragUpdate: (e) {
-                if (e.delta.dx > 0) {
-                  setState(() {
-                    value = 1;
-                  });
-                } else {
-                  setState(() {
-                    value = 0;
-                  });
-                }
-              },
-            )  
+            onHorizontalDragUpdate: (e) {
+              if (e.delta.dx > 0) {
+                setState(() {
+                  value = 1;
+                });
+              } else {
+                setState(() {
+                  value = 0;
+                });
+              }
+            },
+          )  
         ],
       ),
+    );
+  }
+
+  ListView _recipeListView(List<Recipe> recipes) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: recipes.length,
+      itemBuilder: (context, index) {
+      Recipe recipe = recipes[index];
+        return Container(
+          margin: EdgeInsets.only(bottom: 10.0),
+          width: MediaQuery.of(context).size.width * 0.90,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(13),
+            boxShadow: [
+              BoxShadow(
+                offset: Offset(0, 17),
+                blurRadius: 23,
+                spreadRadius: -13,
+                color: Colors.red
+              )
+            ],
+          ),
+          child: InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailRecipe(recipe: recipe)
+                )
+              );
+            },
+            child: Row(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(8.0),
+                    bottomLeft: Radius.circular(8.0),
+                  ),
+                  child: Image.network(
+                      recipe.thumb,
+                      width: 150,
+                      height: 150,
+                      fit:BoxFit.cover
+                  ),
+                ),
+                Flexible(
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      recipe.title,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                ),
+              ],
+            ),
+          ),
+        );
+      }
     );
   }
 }

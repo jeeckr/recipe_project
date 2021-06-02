@@ -1,56 +1,48 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
-
+import 'package:recipe_project/core/model/category.dart';
 import 'package:recipe_project/core/service/api_service.dart';
-import 'package:recipe_project/core/model/recipe.dart';
-import 'package:recipe_project/screen/detail_recipe.dart';
+import 'package:recipe_project/screen/detail_category.dart';
 import 'package:recipe_project/widget/mydrawer.dart';
 
-class Home extends StatefulWidget {
+class CategoryScreen extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _CategoryScreenState createState() => _CategoryScreenState();
 }
 
-class _HomeState extends State<Home> {
+class _CategoryScreenState extends State<CategoryScreen> {
   BuildContext context;
-  ApiService apiService;
+  ApiService _apiService;
 
-  // variable
-  double value = 0; 
+  double value = 0;
   Color primaryColor = Color(0xFF010324);
-  Color backgroundColor = Color(0xFFB5B5B5);
+  Color backgroundColor = Color(0xFFB5B5B5); 
 
   @override
   void initState() {
-    apiService = ApiService();
+    _apiService = ApiService();
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-          children: [
-            // background gradient
-            Scaffold(
-              backgroundColor: primaryColor,
-              body: Container(
-                constraints: BoxConstraints.expand(),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/pattern.png'),
-                    fit: BoxFit.cover,
-                  )
-                ),
-                child: null,
-              ) 
-            ),
-
-            // menu navigasi
-            MyDrawer(),
-
-            // main screen
-            TweenAnimationBuilder(
+        children: [
+          Scaffold(
+            backgroundColor: primaryColor,
+            body: Container(
+              constraints: BoxConstraints.expand(),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/pattern.png'),
+                  fit: BoxFit.cover,
+                )
+              ),
+              child: null,
+            ) 
+          ),
+          MyDrawer(),
+          TweenAnimationBuilder(
               tween: Tween<double>(
                 begin: 0,
                 end: value,
@@ -79,17 +71,17 @@ class _HomeState extends State<Home> {
                             scale: 8,
                           )
                         ],
-                        title: Text("Home"),
+                        title: Text("Kategori Resep"),
                       ),
-                      body: SingleChildScrollView(
-                        child: Container(
-                          decoration: BoxDecoration(color: backgroundColor),
+                      body: Container(
+                        constraints: BoxConstraints.expand(),
+                        decoration: BoxDecoration(),
+                        child: SingleChildScrollView(
                           child: Padding(
-                            padding: EdgeInsets.all(10.0),
+                            padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.max,
                               children: [
                                 TextField(
                                   decoration: InputDecoration(
@@ -104,40 +96,24 @@ class _HomeState extends State<Home> {
                                     )
                                   ),
                                 ),
-                                SizedBox(height: 20.0,),
-                                // menu kategori
-                                Text("Kategori",
+                                SizedBox(
+                                  height: 20.0,
+                                ),
+                                Text("List Kategori",
                                   style: TextStyle(
                                     fontSize: 20.0
                                   ),
                                 ),
-                                SizedBox(height: 12.0,),
-                                Container(
-                                  width: double.infinity,
-                                  height: 100.0,
-                                  child: ListView(
-                                    scrollDirection: Axis.horizontal,
-                                    children: [
-                                      // myCategory(categories[0]),
-                                      // myCategory(categories[1])
-                                    ],
-                                  ),
+                                SizedBox(
+                                  height: 12.0,
                                 ),
-                                SizedBox(height: 13.0,),
-                                // menu resep
-                                Text("List Resep",
-                                  style: TextStyle(
-                                    fontSize: 20.0
-                                  ),
-                                ),
-                                SizedBox(height: 12.0,),
                                 FutureBuilder(
-                                  future: apiService.getRecipes(),
-                                  builder: (BuildContext context, AsyncSnapshot<List<Recipe>> snapshot) {
+                                  future: _apiService.getCategories(),
+                                  builder: (BuildContext context, AsyncSnapshot<List<Category>> snapshot) {
                                     if (snapshot.hasData) {
-                                      List<Recipe> recipes = snapshot.data;
+                                      List<Category> categories = snapshot.data;
                                       return SingleChildScrollView(
-                                        child: _recipeListView(recipes),
+                                        child: _categoryListView(categories),
                                       );
                                     } else if (snapshot.hasError) {
                                       return Text("${snapshot.error}");
@@ -151,41 +127,39 @@ class _HomeState extends State<Home> {
                                 ),
                               ],
                             ),
-                          ),
+                          )
                         )
-                      )
-                    )
+                      ),
+                    ),
                   )
                 );
               }
             ),
-
-            // membuat gestur saat membuka drawer
-            GestureDetector(
-              onHorizontalDragUpdate: (e) {
-                if (e.delta.dx > 0) {
-                  setState(() {
-                    value = 1;
-                  });
-                } else {
-                  setState(() {
-                    value = 0;
-                  });
-                }
-              },
-            )  
-          ],
-        ),
-      );
+          GestureDetector(
+            onHorizontalDragUpdate: (e) {
+              if (e.delta.dx > 0) {
+                setState(() {
+                  value = 1;
+                });
+              } else {
+                setState(() {
+                  value = 0;
+                });
+              }
+            },
+          )  
+        ],
+      ),
+    );
   }
 
-  ListView _recipeListView(List<Recipe> recipes) {
+   ListView _categoryListView(List<Category> categories) {
     return ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
-      itemCount: recipes.length,
+      itemCount: categories.length,
       itemBuilder: (context, index) {
-      Recipe recipe = recipes[index];
+      Category category = categories[index];
         return Container(
           margin: EdgeInsets.only(bottom: 10.0),
           width: MediaQuery.of(context).size.width * 0.90,
@@ -197,7 +171,7 @@ class _HomeState extends State<Home> {
                 offset: Offset(0, 17),
                 blurRadius: 23,
                 spreadRadius: -13,
-                color: Colors.red
+                color: Colors.grey
               )
             ],
           ),
@@ -206,29 +180,17 @@ class _HomeState extends State<Home> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => DetailRecipe(recipe: recipe)
+                  builder: (context) => DetailCategory(category: category,)
                 )
               );
             },
             child: Row(
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8.0),
-                    bottomLeft: Radius.circular(8.0),
-                  ),
-                  child: Image.network(
-                      recipe.thumb,
-                      width: 150,
-                      height: 150,
-                      fit:BoxFit.cover
-                  ),
-                ),
                 Flexible(
                   child: Padding(
                     padding: EdgeInsets.all(10),
                     child: Text(
-                      recipe.title,
+                      category.category,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,

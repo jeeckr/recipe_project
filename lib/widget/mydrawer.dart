@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-// import 'package:recipe_project/main.dart';
+import 'package:recipe_project/screen/all_category.dart';
 import 'package:recipe_project/screen/home.dart';
-import 'package:recipe_project/pages/recipes.dart';
+import 'package:recipe_project/screen/all_recipe.dart';
 
 class MyDrawer extends StatelessWidget {
   @override
@@ -52,7 +52,7 @@ class MyDrawer extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Recipes()
+                          builder: (context) => RecipesScreen()
                         )
                       );
                     },
@@ -61,7 +61,7 @@ class MyDrawer extends StatelessWidget {
                       color: Colors.white,
                     ),
                     title: Text(
-                      "List",
+                      "Resep",
                       style: TextStyle(
                         color: Colors.white,
                       ),
@@ -69,7 +69,12 @@ class MyDrawer extends StatelessWidget {
                   ),
                   ListTile(
                     onTap: () {
-                      
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CategoryScreen()
+                        )
+                      );
                     },
                     leading: Icon(
                       Icons.category,

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:recipe_project/data/recipe.dart';
-import 'package:recipe_project/pages/detailRecipe.dart';
 
 Widget myRecipe(BuildContext context) {
   return Container(
@@ -77,7 +75,7 @@ Widget myRecipe(BuildContext context) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => DetailRecipe()
+                            // builder: (context) => DetailRecipe()
                           )
                         );
                       },
@@ -106,4 +104,3 @@ Widget myRecipe(BuildContext context) {
     )
   );
 }
- 
