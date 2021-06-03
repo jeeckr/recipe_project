@@ -3,6 +3,8 @@ import 'dart:math';
 
 import 'package:recipe_project/core/service/api_service.dart';
 import 'package:recipe_project/core/model/recipe.dart';
+import 'package:recipe_project/screen/all_category.dart';
+import 'package:recipe_project/screen/all_recipe.dart';
 import 'package:recipe_project/screen/detail_recipe.dart';
 import 'package:recipe_project/widget/mydrawer.dart';
 
@@ -101,6 +103,7 @@ class _HomeState extends State<Home> {
                                           Icon(
                                             Icons.home,
                                             size: 31.0,
+                                            color: Colors.white,
                                           ),
                                           Text(
                                             "Homepage",
@@ -113,6 +116,7 @@ class _HomeState extends State<Home> {
                                           Icon(
                                             Icons.list,
                                             size: 31.0,
+                                            color: Colors.white,
                                           ),
                                         ],
                                       ),
@@ -143,7 +147,19 @@ class _HomeState extends State<Home> {
                                               fontWeight: FontWeight.bold
                                             ),
                                           ),
-                                          Text("See all")
+                                          Material(
+                                            child: InkWell(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) => CategoryScreen()
+                                                  )
+                                                );
+                                              },
+                                              child: Text("lihat semua"),
+                                            ),
+                                          )
                                         ],
                                       ),
                                       SizedBox(height: 12.0,),
@@ -171,7 +187,19 @@ class _HomeState extends State<Home> {
                                               fontWeight: FontWeight.bold
                                             ),
                                           ),
-                                          Text("See all")
+                                          Material(
+                                            child: InkWell(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) => RecipesScreen()
+                                                  )
+                                                );
+                                              },
+                                              child: Text("lihat semua"),
+                                            ),
+                                          )
                                         ],
                                       ),
                                       SizedBox(height: 12.0,),
@@ -244,7 +272,7 @@ class _HomeState extends State<Home> {
                 offset: Offset(0, 17),
                 blurRadius: 23,
                 spreadRadius: -13,
-                color: Colors.red
+                color: Colors.grey[300]
               )
             ],
           ),
@@ -296,13 +324,13 @@ class _HomeState extends State<Home> {
                         ),
                         Container(
                           width: double.infinity,
-                            child: Padding(
-                              padding: EdgeInsets.only(right: 10.0),
-                              child: Text(
-                                "lihat detail..",
-                                textAlign: TextAlign.right,
-                              ),
-                            )
+                          child: Padding(
+                            padding: EdgeInsets.only(right: 10.0),
+                            child: Text(
+                              "lihat detail..",
+                              textAlign: TextAlign.right,
+                            ),
+                          )
                         )
                       ],
                     )
