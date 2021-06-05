@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:recipe_project/core/model/category.dart';
 import 'dart:math';
 
 import 'package:recipe_project/core/service/api_service.dart';
 import 'package:recipe_project/core/model/recipe.dart';
 import 'package:recipe_project/screen/all_category.dart';
 import 'package:recipe_project/screen/all_recipe.dart';
+import 'package:recipe_project/screen/detail_category.dart';
 import 'package:recipe_project/screen/detail_recipe.dart';
 import 'package:recipe_project/widget/mydrawer.dart';
 
@@ -35,7 +37,7 @@ class _HomeState extends State<Home> {
           children: [
             // background gradient
             Scaffold(
-              backgroundColor: primaryColor,
+              backgroundColor: Color(0xFF714CFE),
               body: Container(
                 constraints: BoxConstraints.expand(),
                 decoration: BoxDecoration(
@@ -81,16 +83,16 @@ class _HomeState extends State<Home> {
                                     bottomLeft: Radius.circular(30.0),
                                     bottomRight: Radius.circular(30.0),
                                   ),
-                                  color: Color(0xFFF5CEB8),
-                                  image: DecorationImage(
-                                    alignment: Alignment.centerLeft,
-                                    image: AssetImage("assets/images/undraw_pilates_gpdb.png")
-                                  )
+                                  color: Color(0xFFB39AFD),
+                                  // image: DecorationImage(
+                                  //   alignment: Alignment.centerLeft,
+                                  //   image: AssetImage("assets/images/undraw_pilates_gpdb.png")
+                                  // )
                                 ),
                               ),
                               SafeArea(
                                 child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 25.0),
+                                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,7 +110,8 @@ class _HomeState extends State<Home> {
                                           Text(
                                             "Homepage",
                                             style: TextStyle(
-                                              fontSize: 23.0,
+                                              fontSize: 35.0,
+                                              fontFamily: 'Actonia',
                                               fontWeight: FontWeight.bold,
                                               color: Colors.white
                                             ),
@@ -143,8 +146,9 @@ class _HomeState extends State<Home> {
                                           Text(
                                             "Kategori",
                                             style: TextStyle(
-                                              fontSize: 20.0,
-                                              fontWeight: FontWeight.bold
+                                              fontSize: 30.0,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'Amplify',
                                             ),
                                           ),
                                           Material(
@@ -162,18 +166,44 @@ class _HomeState extends State<Home> {
                                           )
                                         ],
                                       ),
-                                      SizedBox(height: 12.0,),
-                                      Container(
-                                        width: double.infinity,
-                                        height: 100.0,
-                                        child: ListView(
-                                          scrollDirection: Axis.horizontal,
-                                          children: [
-                                            // myCategory(categories[0]),
-                                            // myCategory(categories[1])
-                                          ],
-                                        ),
-                                      ),
+                                      // Container(
+                                      //   child: FutureBuilder(
+                                      //     future: apiService.getCategories(),
+                                      //     builder: (BuildContext context, AsyncSnapshot<List<Category>> snapshot) {
+                                      //       if (snapshot.hasData) {
+                                      //         List<Category> categories = snapshot.data;
+                                      //         return ListView.builder(
+                                      //           itemCount: categories.length,
+                                      //           itemBuilder: (context, index) {
+                                      //             // Category category = snapshot.data[index];
+                                      //             return ListTile(
+                                      //                title: Text(categories[index].key),
+                                      //             );
+                                      //           }
+                                      //         );
+                                      //       } else if (snapshot.hasError) {
+                                      //         return Text("${snapshot.error}");
+                                      //       }
+                                      //       return Container(
+                                      //         child: Center(
+                                      //           child: CircularProgressIndicator(),
+                                      //         ),
+                                      //       );
+                                      //     },
+                                      //   ),
+                                      // ),
+                                      // SizedBox(height: 12.0,),
+                                      // Container(
+                                      //   width: double.infinity,
+                                      //   height: 100.0,
+                                      //   child: ListView(
+                                      //     scrollDirection: Axis.horizontal,
+                                      //     children: [
+                                      //       // myCategory(categories[0]),
+                                      //       // myCategory(categories[1])
+                                      //     ],
+                                      //   ),
+                                      // ),
                                       SizedBox(height: 13.0,),
                                       // menu resep
                                       Row(
@@ -183,8 +213,9 @@ class _HomeState extends State<Home> {
                                           Text(
                                             "Resep",
                                             style: TextStyle(
-                                              fontSize: 20.0,
-                                              fontWeight: FontWeight.bold
+                                              fontSize: 30.0,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'Amplify',
                                             ),
                                           ),
                                           Material(
@@ -340,6 +371,51 @@ class _HomeState extends State<Home> {
             ),
           ),
         );
+      }
+    );
+  }
+
+  ListView _categoryListView(List<Category> categories) {
+    return ListView.builder(
+      // shrinkWrap: true,
+      // scrollDirection: Axis.vertical,
+      itemCount: categories.length,
+      itemBuilder: (context, index) {
+      Category category = categories[index];
+      return Container(
+        width: 50,
+        height: 50,
+        child: InkWell(
+          child: Icon(Icons.home),
+        ),
+      );
+        // return Container(
+        //   margin: EdgeInsets.only(bottom: 10.0),
+        //   width: MediaQuery.of(context).size.width * 0.10,
+        //   decoration: BoxDecoration(
+        //     color: Colors.white,
+        //     borderRadius: BorderRadius.circular(13),
+        //     // boxShadow: [
+        //     //   BoxShadow(
+        //     //     offset: Offset(0, 17),
+        //     //     blurRadius: 23,
+        //     //     spreadRadius: -13,
+        //     //     color: Colors.grey
+        //     //   )
+        //     // ],
+        //   ),
+        //   child: InkWell(
+        //     onTap: () {
+        //       Navigator.push(
+        //         context,
+        //         MaterialPageRoute(
+        //           builder: (context) => DetailCategory(category: category,)
+        //         )
+        //       );
+        //     },
+        //     child: Icon(Icons.home),
+        //   ),
+        // );
       }
     );
   }

@@ -44,11 +44,15 @@ class _DetailCategoryState extends State<DetailCategory> {
               Container(
                 height: size.height * .45,
                 decoration: BoxDecoration(
-                  color: Color(0xFFF5CEB8),
-                  image: DecorationImage(
-                    alignment: Alignment.centerLeft,
-                    image: AssetImage("assets/images/undraw_pilates_gpdb.png")
-                  )
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(30.0),
+                    bottomRight: Radius.circular(30.0),
+                  ),
+                  color: Color(0xFFB39AFD),
+                  // image: DecorationImage(
+                  //   alignment: Alignment.centerLeft,
+                  //   image: AssetImage("assets/images/undraw_pilates_gpdb.png")
+                  // )
                 ),
               ),
               SafeArea(
@@ -57,17 +61,36 @@ class _DetailCategoryState extends State<DetailCategory> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Material(
-                        type: MaterialType.transparency,
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Icon(
-                            Icons.arrow_back,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Material(
+                            type: MaterialType.transparency,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: Icon(
+                                Icons.arrow_back,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            "Resep",
+                            style: TextStyle(
+                              fontSize: 23.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white
+                            ),
+                          ),
+                          Icon(
+                            Icons.list,
+                            size: 31.0,
                             color: Colors.white,
                           ),
-                        ),
+                        ],
                       ),
                       SizedBox(height: 15.0,),
                       Container(
@@ -83,7 +106,7 @@ class _DetailCategoryState extends State<DetailCategory> {
                           textAlign: TextAlign.right,
                         ),
                       ),
-                      SizedBox(height: 50.0,),
+                      SizedBox(height: 200.0,),
                       FutureBuilder(
                         future: _apiService.getRecipeByCategory(_key),
                         builder: (BuildContext context, AsyncSnapshot<List<Recipe>> snapshot) {
@@ -131,7 +154,7 @@ class _DetailCategoryState extends State<DetailCategory> {
                 offset: Offset(0, 17),
                 blurRadius: 23,
                 spreadRadius: -13,
-                color: Colors.red
+                color: Colors.grey[300]
               )
             ],
           ),
@@ -145,29 +168,54 @@ class _DetailCategoryState extends State<DetailCategory> {
               );
             },
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8.0),
-                    bottomLeft: Radius.circular(8.0),
-                  ),
-                  child: Image.network(
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image.network(
                       recipe.thumb,
-                      width: 150,
-                      height: 150,
+                      width: 100,
+                      height: 100,
                       fit:BoxFit.cover
+                    ),
                   ),
                 ),
                 Flexible(
                   child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Text(
-                      recipe.title,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+                    padding: EdgeInsets.only(
+                      top: 10.0,
+                      right: 10.0,
+                      bottom: 10.0
                     ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          height: 80.0,
+                          child: Text(
+                            recipe.title,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: double.infinity,
+                          child: Padding(
+                            padding: EdgeInsets.only(right: 10.0),
+                            child: Text(
+                              "lihat detail..",
+                              textAlign: TextAlign.right,
+                            ),
+                          )
+                        )
+                      ],
+                    )
                   )
                 ),
               ],

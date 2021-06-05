@@ -44,6 +44,8 @@ class MyDrawer extends StatelessWidget {
                       "Home",
                       style: TextStyle(
                         color: Colors.white,
+                        fontFamily: 'Actonia',
+                        fontSize: 22.0,
                       ),
                     )
                   ),
@@ -64,6 +66,8 @@ class MyDrawer extends StatelessWidget {
                       "Resep",
                       style: TextStyle(
                         color: Colors.white,
+                        fontFamily: 'Actonia',
+                        fontSize: 22.0,
                       ),
                     )
                   ),
@@ -84,6 +88,8 @@ class MyDrawer extends StatelessWidget {
                       "Kategori",
                       style: TextStyle(
                         color: Colors.white,
+                        fontFamily: 'Actonia',
+                        fontSize: 22.0,
                       ),
                     )
                   ),
@@ -97,6 +103,8 @@ class MyDrawer extends StatelessWidget {
                       "Keluar",
                       style: TextStyle(
                         color: Colors.white,
+                        fontFamily: 'Actonia',
+                        fontSize: 22.0,
                       ),
                     )
                   ),

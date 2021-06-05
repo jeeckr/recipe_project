@@ -11,8 +11,8 @@ class ApiService {
     final response = await client.get(
       Uri.parse("$url/api/recipes"),
       headers: {
+        "Accept": "application/json",
         "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, HEAD"
       },
     );
 
@@ -29,8 +29,12 @@ class ApiService {
         await client.get(Uri.parse("$url/api/recipe/$key"));
 
     if (response.statusCode == 200) {
-      // var ingredient = jsonDecode(response.body)['results']['ingredient'];
+      // var ingredientJson = jsonDecode(response.body)['results'][0]['ingredient'];
+      // List<String> ingredient = ingredientJson != null ? List.from(ingredientJson) : null;
+
       return Recipe.fromJson(jsonDecode(response.body)['results']);
+      // List jsonResponse = json.decode(response.body)['results'];
+      // return jsonResponse.map((job) => new Recipe.fromJson(job)).toList();
     } else {
       throw Exception('Failed to load recipe');
     }

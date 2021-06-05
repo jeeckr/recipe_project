@@ -76,11 +76,11 @@ class _RecipesScreenState extends State<RecipesScreen> {
                                   bottomLeft: Radius.circular(30.0),
                                   bottomRight: Radius.circular(30.0),
                                 ),
-                                color: Color(0xFFF5CEB8),
-                                image: DecorationImage(
-                                  alignment: Alignment.centerLeft,
-                                  image: AssetImage("assets/images/undraw_pilates_gpdb.png")
-                                )
+                                color: Color(0xFFB39AFD),
+                                // image: DecorationImage(
+                                //   alignment: Alignment.centerLeft,
+                                //   image: AssetImage("assets/images/undraw_pilates_gpdb.png")
+                                // )
                               ),
                             ),
                             SafeArea(

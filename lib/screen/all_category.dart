@@ -74,11 +74,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   bottomLeft: Radius.circular(30.0),
                                   bottomRight: Radius.circular(30.0),
                                 ),
-                                color: Color(0xFFF5CEB8),
-                                image: DecorationImage(
-                                  alignment: Alignment.centerLeft,
-                                  image: AssetImage("assets/images/undraw_pilates_gpdb.png")
-                                )
+                                color: Color(0xFFB39AFD),
+                                // image: DecorationImage(
+                                //   alignment: Alignment.centerLeft,
+                                //   image: AssetImage("assets/images/undraw_pilates_gpdb.png")
+                                // )
                               ),
                             ),
                             SafeArea(
@@ -176,7 +176,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
     );
   }
 
-   ListView _categoryListView(List<Category> categories) {
+  ListView _categoryListView(List<Category> categories) {
     return ListView.builder(
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),

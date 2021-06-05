@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:collection';
 
 class Recipe {
   String title;
@@ -8,8 +9,11 @@ class Recipe {
   String portion;
   String dificulty;
   String desc;
-  String ingredient;
-  String step;
+  // String ingredient;
+  // List<Ingredient> ingredient;
+  // List<String> ingredient;
+  // String step;
+  //  List<String> step;
 
   Recipe({
     this.title,
@@ -19,8 +23,8 @@ class Recipe {
     this.portion,
     this.dificulty,
     this.desc,
-    this.ingredient,
-    this.step
+    // this.ingredient,
+    // this.step
   });
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
@@ -32,17 +36,34 @@ class Recipe {
       portion: json["portion"],
       dificulty: json["dificulty"],
       desc: json["desc"],
-      ingredient: json["ingredient"],
-      step: json["step"]
+      // ingredient: json["ingredient"],
+      // ingredient: List<Ingredient>.from(json["translations"].map((x) => Ingredient.fromJson(x))),
+      // ingredient: List<String>.from(json["ingredient"].map((x) => x)),
+      // step: json["step"]
+      // step: List<String>.from(json["step"].map((x) => x)),
+      
     );
   }
 
   Map<String, dynamic> toJson() {
-    return {"title": title, "thumb": thumb, "key": key, "times": times, "portion": portion, "dificulty": dificulty, "desc": desc, "ingredient": ingredient, "step": step};
+    return 
+    {
+      "title": title, 
+      "thumb": thumb, 
+      "key": key, 
+      "times": times, 
+      "portion": portion, 
+      "dificulty": dificulty, 
+      "desc": desc, 
+      // "ingredient": ingredient, 
+      // "ingredient": List<dynamic>.from(ingredient.map((x) => x)),
+      // "step": step
+      // "step": List<dynamic>.from(ingredient.map((x) => x)),
+    };
   }
 
   @override
   String toString() {
-    return 'Recipe{title: $title, thumb: $thumb, key: $key, times: $times, portion: $portion, dificulty: $dificulty, desc: $desc, ingredient: $ingredient, step: $step}';
+    return 'Recipe{title: $title, thumb: $thumb, key: $key, times: $times, portion: $portion, dificulty: $dificulty, desc: $desc,}';
   }
 }
