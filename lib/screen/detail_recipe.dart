@@ -175,9 +175,9 @@ class _DetailRecipeState extends State<DetailRecipe> {
                               Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8.0),
-                                  color: Color(0xFF714CFE),
+                                  color: Color(0xFFBBC8DE),
                                   boxShadow: [
-                                     BoxShadow(
+                                    BoxShadow(
                                       offset: Offset(0, 17),
                                       blurRadius: 23,
                                       spreadRadius: -13,
@@ -191,7 +191,7 @@ class _DetailRecipeState extends State<DetailRecipe> {
                                     recipe.desc ,
                                     style: TextStyle(
                                       fontSize: 15.0,
-                                      color: Colors.white
+                                      color: Colors.grey[800]
                                     ),
                                   ),
                                 )

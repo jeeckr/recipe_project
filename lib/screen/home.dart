@@ -83,7 +83,8 @@ class _HomeState extends State<Home> {
                                     bottomLeft: Radius.circular(30.0),
                                     bottomRight: Radius.circular(30.0),
                                   ),
-                                  color: Color(0xFFB39AFD),
+                                  // color: Color(0xFFB39AFD),
+                                  color: Color(0xFFBBC8DE),
                                 ),
                               ),
                               SafeArea(
@@ -164,44 +165,73 @@ class _HomeState extends State<Home> {
                                           )
                                         ],
                                       ),
-                                      // Container(
-                                      //   child: FutureBuilder(
-                                      //     future: apiService.getCategories(),
-                                      //     builder: (BuildContext context, AsyncSnapshot<List<Category>> snapshot) {
-                                      //       if (snapshot.hasData) {
-                                      //         List<Category> categories = snapshot.data;
-                                      //         return ListView.builder(
-                                      //           itemCount: categories.length,
-                                      //           itemBuilder: (context, index) {
-                                      //             // Category category = snapshot.data[index];
-                                      //             return ListTile(
-                                      //                title: Text(categories[index].key),
-                                      //             );
-                                      //           }
-                                      //         );
-                                      //       } else if (snapshot.hasError) {
-                                      //         return Text("${snapshot.error}");
-                                      //       }
-                                      //       return Container(
-                                      //         child: Center(
-                                      //           child: CircularProgressIndicator(),
-                                      //         ),
-                                      //       );
-                                      //     },
-                                      //   ),
-                                      // ),
-                                      // SizedBox(height: 12.0,),
-                                      // Container(
-                                      //   width: double.infinity,
-                                      //   height: 100.0,
-                                      //   child: ListView(
-                                      //     scrollDirection: Axis.horizontal,
-                                      //     children: [
-                                      //       // myCategory(categories[0]),
-                                      //       // myCategory(categories[1])
-                                      //     ],
-                                      //   ),
-                                      // ),
+                                      SingleChildScrollView(
+                                        child: FutureBuilder(
+                                        future: apiService.getCategories(),
+                                        builder: (BuildContext context, AsyncSnapshot<List<Category>> snapshot) {
+                                          if (snapshot.hasData) {
+                                            List<Category> categories = snapshot.data;
+                                            return Column(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                SizedBox(
+                                                  height: 80.0,
+                                                  child: ListView.builder(
+                                                    shrinkWrap: true,
+                                                    scrollDirection: Axis.horizontal,
+                                                    itemCount: categories.length,
+                                                    itemBuilder: (context, index) {
+                                                      Category category = snapshot.data[index];
+                                                      return Padding(
+                                                        padding: EdgeInsets.symmetric(vertical: 10),
+                                                        child: Container(
+                                                          width: 65,
+                                                          height: 50,
+                                                          margin: EdgeInsets.only(right: 8),
+                                                          decoration: BoxDecoration(
+                                                            color: Colors.white,
+                                                            borderRadius: BorderRadius.circular(10), 
+                                                            boxShadow: [
+                                                              BoxShadow(
+                                                                offset: Offset(0, 17),
+                                                                blurRadius: 23,
+                                                                spreadRadius: -13,
+                                                              )
+                                                            ],
+                                                          ),
+                                                          child: InkWell(
+                                                            onTap: () {
+                                                              Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                  builder: (context) => DetailCategory(category: category,)
+                                                                )
+                                                              );
+                                                            },
+                                                            child: Icon(
+                                                              Icons.fastfood,
+                                                              color: Color(0xFFBBC8DE),
+                                                              size: 30,
+                                                            ),
+                                                          )
+                                                        ),
+                                                      );
+                                                    }
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          } else if (snapshot.hasError) {
+                                            return Text("${snapshot.error}");
+                                          }
+                                          return Container(
+                                            child: Center(
+                                              child: CircularProgressIndicator(),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      ),
                                       SizedBox(height: 13.0,),
                                       // menu resep
                                       Row(

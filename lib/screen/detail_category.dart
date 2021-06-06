@@ -48,7 +48,7 @@ class _DetailCategoryState extends State<DetailCategory> {
                     bottomLeft: Radius.circular(30.0),
                     bottomRight: Radius.circular(30.0),
                   ),
-                  color: Color(0xFFB39AFD),
+                  color: Color(0xFFBBC8DE),
                 ),
               ),
               SafeArea(
@@ -89,19 +89,6 @@ class _DetailCategoryState extends State<DetailCategory> {
                         ],
                       ),
                       SizedBox(height: 15.0,),
-                      // Container(
-                      //   alignment: Alignment.center,
-                      //   child: Text(
-                      //     "\"I cook, I create, I really enjoy what I do, I still have a lot to achieve\"",
-                      //     style: TextStyle(
-                      //       fontSize: 25,
-                      //       fontWeight: FontWeight.w900,
-                      //       color: Colors.white,
-                      //       fontStyle: FontStyle.italic
-                      //     ),
-                      //     textAlign: TextAlign.right,
-                      //   ),
-                      // ),
                       Container(
                         alignment: Alignment.center,
                         child: Image(
@@ -109,7 +96,7 @@ class _DetailCategoryState extends State<DetailCategory> {
                           image: AssetImage('assets/images/food-4.png'),
                         ),
                       ),
-                      SizedBox(height: 200.0,),
+                      SizedBox(height: 70.0,),
                       FutureBuilder(
                         future: _apiService.getRecipeByCategory(_key),
                         builder: (BuildContext context, AsyncSnapshot<List<Recipe>> snapshot) {

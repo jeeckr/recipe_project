@@ -76,7 +76,7 @@ class _RecipesScreenState extends State<RecipesScreen> {
                                   bottomLeft: Radius.circular(30.0),
                                   bottomRight: Radius.circular(30.0),
                                 ),
-                                color: Color(0xFFB39AFD),                          
+                                color: Color(0xFFBBC8DE),                        
                               ),
                             ),
                             SafeArea(
