@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:recipe_project/screen/all_category.dart';
 import 'package:recipe_project/screen/home.dart';
 import 'package:recipe_project/screen/all_recipe.dart';
@@ -94,7 +95,29 @@ class MyDrawer extends StatelessWidget {
                     )
                   ),
                   ListTile(
-                    onTap: () {},
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text("Keluar Aplikasi"),
+                            content: Text("Apakah anda ingin keluar aplikasi?"),
+                            actions: [
+                              FlatButton(
+                                child: Text("Batal"),
+                                onPressed: () => Navigator.pop(context, false),
+                              ),
+                              FlatButton(
+                                child: Text("Keluar"),
+                                onPressed: () {
+                                  SystemNavigator.pop();
+                                },
+                              )
+                            ],
+                          );
+                        },
+                      );
+                    },
                     leading: Icon(
                       Icons.logout,
                       color: Colors.white,

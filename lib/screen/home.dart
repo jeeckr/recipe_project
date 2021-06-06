@@ -37,7 +37,7 @@ class _HomeState extends State<Home> {
           children: [
             // background gradient
             Scaffold(
-              backgroundColor: Color(0xFF714CFE),
+              backgroundColor: Color(0xFF010324),
               body: Container(
                 constraints: BoxConstraints.expand(),
                 decoration: BoxDecoration(
@@ -84,10 +84,6 @@ class _HomeState extends State<Home> {
                                     bottomRight: Radius.circular(30.0),
                                   ),
                                   color: Color(0xFFB39AFD),
-                                  // image: DecorationImage(
-                                  //   alignment: Alignment.centerLeft,
-                                  //   image: AssetImage("assets/images/undraw_pilates_gpdb.png")
-                                  // )
                                 ),
                               ),
                               SafeArea(
@@ -108,7 +104,7 @@ class _HomeState extends State<Home> {
                                             color: Colors.white,
                                           ),
                                           Text(
-                                            "Homepage",
+                                            "Pawon Deso",
                                             style: TextStyle(
                                               fontSize: 35.0,
                                               fontFamily: 'Actonia',
@@ -116,11 +112,7 @@ class _HomeState extends State<Home> {
                                               color: Colors.white
                                             ),
                                           ),
-                                          Icon(
-                                            Icons.list,
-                                            size: 31.0,
-                                            color: Colors.white,
-                                          ),
+                                          Text("        ")
                                         ],
                                       ),
                                       SizedBox(height: 20.0,),
@@ -137,7 +129,13 @@ class _HomeState extends State<Home> {
                                           )
                                         ),
                                       ),
-                                      SizedBox(height: 230.0,),
+                                      Container(
+                                        alignment: Alignment.center,
+                                        child: Image(
+                                          width: 220,
+                                          image: AssetImage('assets/images/food-1.png'),
+                                        ),
+                                      ),
                                       // menu kategori
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

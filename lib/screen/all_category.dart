@@ -119,14 +119,18 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                             color: Colors.white
                                           ),
                                         ),
-                                        Icon(
-                                          Icons.list,
-                                          size: 31.0,
-                                          color: Colors.white,
-                                        ),
+                                        Text("        ")
                                       ],
                                     ),
-                                    SizedBox(height: 300.0,),
+                                    SizedBox(height: 50.0,),
+                                    Container(
+                                      alignment: Alignment.center,
+                                      child: Image(
+                                        width: 220,
+                                        image: AssetImage('assets/images/food-2.png'),
+                                      ),
+                                    ),
+                                    SizedBox(height: 60.0,),
                                     FutureBuilder(
                                       future: _apiService.getCategories(),
                                       builder: (BuildContext context, AsyncSnapshot<List<Category>> snapshot) {
@@ -214,7 +218,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Icon(
-                      Icons.emoji_food_beverage,
+                      Icons.fastfood,
                       size: 30,
                     )
                   ),

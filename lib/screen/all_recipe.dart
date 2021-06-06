@@ -76,11 +76,7 @@ class _RecipesScreenState extends State<RecipesScreen> {
                                   bottomLeft: Radius.circular(30.0),
                                   bottomRight: Radius.circular(30.0),
                                 ),
-                                color: Color(0xFFB39AFD),
-                                // image: DecorationImage(
-                                //   alignment: Alignment.centerLeft,
-                                //   image: AssetImage("assets/images/undraw_pilates_gpdb.png")
-                                // )
+                                color: Color(0xFFB39AFD),                          
                               ),
                             ),
                             SafeArea(
@@ -121,11 +117,7 @@ class _RecipesScreenState extends State<RecipesScreen> {
                                             color: Colors.white
                                           ),
                                         ),
-                                        Icon(
-                                          Icons.list,
-                                          size: 31.0,
-                                          color: Colors.white,
-                                        ),
+                                        Text("        ")
                                       ],
                                     ),
                                     SizedBox(height: 20.0,),
@@ -142,7 +134,14 @@ class _RecipesScreenState extends State<RecipesScreen> {
                                         )
                                       ),
                                     ),
-                                    SizedBox(height: 230.0),
+                                    Container(
+                                      alignment: Alignment.center,
+                                      child: Image(
+                                        width: 220,
+                                        image: AssetImage('assets/images/food-3.png'),
+                                      ),
+                                    ),
+                                    SizedBox(height: 10.0),
                                     FutureBuilder(
                                       future: _apiService.getRecipes(),
                                       builder: (BuildContext context, AsyncSnapshot<List<Recipe>> snapshot) {

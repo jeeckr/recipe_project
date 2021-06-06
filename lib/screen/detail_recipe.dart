@@ -65,11 +65,6 @@ class _DetailRecipeState extends State<DetailRecipe> {
             Container(
               height: size.height * .45,
               decoration: BoxDecoration(
-                // color: Color(0xFFF5CEB8),
-                // borderRadius: BorderRadius.only(
-                //   bottomLeft: Radius.circular(30.0),
-                //   bottomRight: Radius.circular(30.0),
-                // ),
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   alignment: Alignment.centerLeft,
@@ -83,17 +78,126 @@ class _DetailRecipeState extends State<DetailRecipe> {
                 child: Column(
                   children: [
                     // button cek log
-                    RaisedButton(
-                      onPressed: () => log.d(widget.recipe),
-                      child: Text("log"),
+                    // RaisedButton(
+                    //   onPressed: () => log.d(widget.recipe),
+                    //   child: Text("log"),
+                    // ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Material(
+                          type: MaterialType.transparency,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Icon(
+                              Icons.home,
+                              size: 31.0,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          "Resep",
+                          style: TextStyle(
+                            fontSize: 23.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white
+                          ),
+                        ),
+                        Text("        ")
+                      ],
                     ),
+                    SizedBox(height: 230,),
                     FutureBuilder<Recipe>(
                       future: _apiService.getRecipeById(_key),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           Recipe recipe = snapshot.data;
-                          return Container(
-                            child: Text("test")
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(bottom: 10.0),
+                                width: MediaQuery.of(context).size.width * 0.90,
+                                padding: EdgeInsets.all(16),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(13),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      offset: Offset(0, 17),
+                                      blurRadius: 23,
+                                      spreadRadius: -13,
+                                    )
+                                  ]
+                                ),
+                                child: Text(
+                                  recipe.title,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 25.0,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Actonia'
+                                  )
+                                )
+                              ),
+                              SizedBox(height: 12.0,),
+                              Text(
+                                "Tingkat Kesulitan",
+                                style: TextStyle(
+                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Amplify',
+                                ),
+                              ),
+                              SizedBox(height: 5.0,),
+                              Container(
+                                child: Text(
+                                  recipe.dificulty ,
+                                  style: TextStyle(
+                                    fontSize: 15.0,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 12.0,),
+                              Text(
+                                "Deskripsi",
+                                style: TextStyle(
+                                  fontSize: 30.0,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Amplify',
+                                ),
+                              ),
+                              SizedBox(height: 5.0,),
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  color: Color(0xFF714CFE),
+                                  boxShadow: [
+                                     BoxShadow(
+                                      offset: Offset(0, 17),
+                                      blurRadius: 23,
+                                      spreadRadius: -13,
+                                      // color: color
+                                    )
+                                  ],
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.all(14.0),
+                                  child: Text(
+                                    recipe.desc ,
+                                    style: TextStyle(
+                                      fontSize: 15.0,
+                                      color: Colors.white
+                                    ),
+                                  ),
+                                )
+                              ),
+                              SizedBox(height: 10.0,),
+                            ],
                           );
                         } else if (snapshot.hasError) {
                           return Text("${snapshot.error}");
@@ -104,162 +208,6 @@ class _DetailRecipeState extends State<DetailRecipe> {
                     )
                   ],
                 ),
-                // child: Column(
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   children: [
-                //     Row(
-                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //       crossAxisAlignment: CrossAxisAlignment.center,
-                //       children: [
-                //         Material(
-                //           type: MaterialType.transparency,
-                //           child: InkWell(
-                //             onTap: () {
-                //               Navigator.pop(context);
-                //             },
-                //             child: Icon(
-                //               Icons.home,
-                //               size: 31.0,
-                //               color: Colors.white,
-                //             ),
-                //           ),
-                //         ),
-                //         Text(
-                //           "Resep",
-                //           style: TextStyle(
-                //             fontSize: 23.0,
-                //             fontWeight: FontWeight.bold,
-                //             color: Colors.white
-                //           ),
-                //         ),
-                //         Icon(
-                //           Icons.list,
-                //           size: 31.0,
-                //           color: Colors.white,
-                //         ),
-                //       ],
-                //     ),
-                //     SizedBox(height: 230,),
-                //     Container(
-                //       margin: EdgeInsets.only(bottom: 10.0),
-                //       width: MediaQuery.of(context).size.width * 0.90,
-                //       padding: EdgeInsets.all(16),
-                //       decoration: BoxDecoration(
-                //         color: Colors.white,
-                //         borderRadius: BorderRadius.circular(13),
-                //         boxShadow: [
-                //           BoxShadow(
-                //             offset: Offset(0, 17),
-                //             blurRadius: 23,
-                //             spreadRadius: -13,
-                //             // color: color
-                //           )
-                //         ]
-                //       ),
-                //       child: Text(
-                //         _title,
-                //         textAlign: TextAlign.center,
-                //         // maxLines: 3,
-                //         // overflow: TextOverflow.ellipsis,
-                //         style: TextStyle(
-                //           fontSize: 25.0,
-                //           fontWeight: FontWeight.bold,
-                //           fontFamily: 'Actonia'
-                //         )
-                //       )
-                //     ),
-                //     SizedBox(height: 12.0,),
-                //     Text(
-                //       "Tingkat Kesulitan",
-                //       style: TextStyle(
-                //         fontSize: 30.0,
-                //         fontWeight: FontWeight.bold,
-                //         fontFamily: 'Amplify',
-                //       ),
-                //     ),
-                //     Container(
-                //       child: Text(
-                //         widget.recipe.dificulty ,
-                //         style: TextStyle(
-                //           fontSize: 15.0,
-                //           // fontWeight: FontWeight.bold,
-                //           // fontFamily: 'Amplify',
-                //         ),
-                //       ),
-                //     ),
-                //     SizedBox(height: 12.0,),
-                //     Text(
-                //       "Deskripsi",
-                //       style: TextStyle(
-                //         fontSize: 30.0,
-                //         fontWeight: FontWeight.bold,
-                //         fontFamily: 'Amplify',
-                //       ),
-                //     ),
-                //     Container(
-                //       child: Text(
-                //         widget.recipe.dificulty ,
-                //         style: TextStyle(
-                //           fontSize: 15.0,
-                //           // fontWeight: FontWeight.bold,
-                //           // fontFamily: 'Amplify',
-                //         ),
-                //       ),
-                //     ),
-                //     SizedBox(height: 12.0,),
-                //     Text(
-                //       "Bahan-Bahan",
-                //       style: TextStyle(
-                //         fontSize: 30.0,
-                //         fontWeight: FontWeight.bold,
-                //         fontFamily: 'Amplify',
-                //       ),
-                //     ),
-                //     Center(
-                //       child: FutureBuilder<Recipe>(
-                //         future: futureRecipe,
-                //         builder: (context, snapshot) {
-                //           if (snapshot.hasData) {
-                //             return Text(snapshot.data.ingredient);
-                //           } else if (snapshot.hasError) {
-                //             return Text("${snapshot.error}");
-                //           }
-
-                //           // By default, show a loading spinner.
-                //           return CircularProgressIndicator();
-                //         },
-                //       )
-                //     ),
-                //     // Text(_desc),
-                //     // FutureBuilder(
-                //     //   future: _apiService.getRecipeById(_key),
-                //     //   builder: (BuildContext context, AsyncSnapshot<List<Recipe>> snapshot) {
-                //     //     if (snapshot.hasData) {
-                //     //       List<Recipe> ingredients = snapshot.data;
-                //     //       return SingleChildScrollView(
-                //     //         child: ListView.builder(
-                //     //           shrinkWrap: true,
-                //     //           physics: NeverScrollableScrollPhysics(),
-                //     //           Map<String, dynamic> data = ingredients[index];
-                //     //           itemCount: ingredients.length,
-                //     //           itemBuilder: (context, index) {
-                //     //             Recipe ingredient = ingredients[index];
-                //     //             return (Text("haloo"));
-                //     //           }
-                //     //         ),
-                //     //       );
-                //     //     } else if (snapshot.hasError) {
-                //     //       return Text("${snapshot.error}");
-                //     //     }
-                //     //     return Container(
-                //     //       child: Center(
-                //     //         child: CircularProgressIndicator(),
-                //     //       ),
-                //     //     );
-                //     //   },
-                //     // ),
-                //   ],
-                // ),
               ),
             )
           ],
