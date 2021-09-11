@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:recipe_project/screen/home.dart';
 import 'package:recipe_project/widget/splashscreen.dart';
 
+// Sandy Putra Pratama
+
 void main() {
   runApp(MyApp());
 }

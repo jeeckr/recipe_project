@@ -4,7 +4,7 @@ import 'package:recipe_project/core/model/category.dart';
 import 'package:recipe_project/core/model/recipe.dart';
 
 class ApiService {
-  static final String url = "https://masak-apa.tomorisakura.vercel.app";
+  static final String url = "https://masak-apa-tomorisakura.vercel.app";
   var client = http.Client();
 
   Future<List<Recipe>> getRecipes() async {

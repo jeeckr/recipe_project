@@ -43,7 +43,7 @@ class _DetailRecipeState extends State<DetailRecipe> {
       _thumb = widget.recipe.thumb;
       _dificulty = widget.recipe.dificulty;
       _key = widget.recipe.key;
-      // _desc = widget.recipe.desc;
+      // _desc = widget.re  cipe.desc;
     }
 
     _apiService = ApiService();

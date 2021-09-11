@@ -331,7 +331,7 @@ class _HomeState extends State<Home> {
                 offset: Offset(0, 17),
                 blurRadius: 23,
                 spreadRadius: -13,
-                color: Colors.grey[300]
+                color: Colors.grey[300] 
               )
             ],
           ),
